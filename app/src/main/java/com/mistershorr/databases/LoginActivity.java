@@ -11,6 +11,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.backendless.Backendless;
+import com.backendless.BackendlessUser;
+import com.backendless.async.callback.AsyncCallback;
+import com.backendless.exceptions.BackendlessFault;
+
 public class LoginActivity extends AppCompatActivity {
 
     public static final String TAG = LoginActivity.class.getSimpleName();
@@ -26,6 +31,9 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        // initialize backendless
+        Backendless.initApp(this, Credentials.APP_ID, Credentials.API_KEY);
 
         wireWidgets();
         setListeners();
@@ -67,7 +75,29 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void loginToBackendless() {
-        Toast.makeText(this, "You clicked login. Nothing happens.", Toast.LENGTH_SHORT).show();
+        String username = editTextUsername.getText().toString();
+        String password = editTextPassword.getText().toString();
+
+        if(!username.isEmpty() && !password.isEmpty()) {
+            // do not forget to call Backendless.initApp in the app initialization code
+
+            Backendless.UserService.login( username, password, new AsyncCallback<BackendlessUser>()
+            {
+                public void handleResponse( BackendlessUser user )
+                {
+                    // user has been logged in
+                    Toast.makeText(LoginActivity.this, "Welcome " + user.getProperty("username"), Toast.LENGTH_SHORT).show();
+                }
+
+                public void handleFault( BackendlessFault fault )
+                {
+                    // login failed, to get the error code call fault.getCode()
+                    Toast.makeText(LoginActivity.this, fault.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+        } else {
+            Toast.makeText(this, "Enter a username and password.", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void wireWidgets() {
