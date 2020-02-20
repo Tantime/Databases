@@ -87,6 +87,10 @@ public class LoginActivity extends AppCompatActivity {
                 {
                     // user has been logged in
                     Toast.makeText(LoginActivity.this, "Welcome " + user.getProperty("username"), Toast.LENGTH_SHORT).show();
+                    // change screen to the friend list activity
+                    Intent targetIntent = new Intent(LoginActivity.this, FriendListActivity.class);
+                    startActivity(targetIntent);
+                    finish();
                 }
 
                 public void handleFault( BackendlessFault fault )
@@ -101,9 +105,9 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void wireWidgets() {
-        textViewCreateAccount = findViewById(R.id.textview_login_create_account);
+        textViewCreateAccount = findViewById(R.id.textView_login_create_account);
         buttonLogin = findViewById(R.id.button_login_login);
-        editTextUsername = findViewById(R.id.edit_text_login_username);
-        editTextPassword = findViewById(R.id.edit_text_login_password);
+        editTextUsername = findViewById(R.id.editText_login_username);
+        editTextPassword = findViewById(R.id.editText_login_password);
     }
 }

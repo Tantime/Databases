@@ -107,11 +107,11 @@ public class RegistrationActivity extends AppCompatActivity {
     }
 
     private void wireWidgets() {
-        editTextUsername = findViewById(R.id.edit_text_create_account_username);
-        editTextPassword = findViewById(R.id.edit_text_create_account_password);
-        editTextName = findViewById(R.id.edit_text_create_account_name);
-        editTextEmail = findViewById(R.id.edit_text_create_account_email);
-        editTextConfirmPassword = findViewById(R.id.edit_text_create_account_confirm_password);
+        editTextUsername = findViewById(R.id.editText_create_account_username);
+        editTextPassword = findViewById(R.id.editText_create_account_password);
+        editTextName = findViewById(R.id.editText_create_account_name);
+        editTextEmail = findViewById(R.id.editText_create_account_email);
+        editTextConfirmPassword = findViewById(R.id.editText_create_account_confirm_password);
         buttonCreateAccount = findViewById(R.id.button_create_account);
     }
 }
