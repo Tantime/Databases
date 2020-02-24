@@ -6,26 +6,25 @@
     android:layout_height="match_parent">
 
     <TextView
+        android:id="@+id/textView_friendItem_moneyOwed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Money Owed:"
+        android:textAlignment="textStart"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView_friendItem_name"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
         android:id="@+id/textView_friendItem_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:text="@string/name"
+        android:textAlignment="textStart"
         android:textSize="36sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.055"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.023" />
-
-    <TextView
-        android:id="@+id/textView_friendsItem_moneyOwed"
-        android:layout_width="192dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="60dp"
-        android:layout_marginTop="20dp"
-        android:text="Money Owed:"
-        android:textSize="30sp"
-        app:layout_constraintStart_toEndOf="@+id/textView_friendItem_name"
         app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

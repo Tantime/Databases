@@ -6,7 +6,7 @@ import android.os.Parcelable;
 public class Friend implements Parcelable {
 
     private int clumsiness;
-    private double gymFrequency;
+    private int gymFrequency;
     private boolean isAwesome;
     private double moneyOwed;
     private String name;
@@ -26,11 +26,11 @@ public class Friend implements Parcelable {
         this.clumsiness = clumsiness;
     }
 
-    public double getGymFrequency() {
+    public int getGymFrequency() {
         return gymFrequency;
     }
 
-    public void setGymFrequency(double gymFrequency) {
+    public void setGymFrequency(int gymFrequency) {
         this.gymFrequency = gymFrequency;
     }
 
@@ -83,7 +83,7 @@ public class Friend implements Parcelable {
 
     protected Friend(Parcel in) {
         this.clumsiness = in.readInt();
-        this.gymFrequency = in.readDouble();
+        this.gymFrequency = in.readInt();
         this.isAwesome = in.readByte() != 0;
         this.moneyOwed = in.readDouble();
         this.name = in.readString();
