@@ -16,10 +16,82 @@
         android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.078" />
+        app:layout_constraintVertical_bias="0.049" />
+
+    <TextView
+        android:id="@+id/textView_friendDetail_moneyOwed"
+        android:layout_width="wrap_content"
+        android:layout_height="24dp"
+        android:layout_marginBottom="4dp"
+        android:text="Money Owed"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/editText_friendDetail_changeMoneyOwed"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Switch
+        android:id="@+id/switch_friendDetail_awesome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Awesome"
+        app:layout_constraintBottom_toTopOf="@+id/textView_friendDetail_gymFrequency"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/seekBar_friendDetail_changeClumsiness"
+        app:layout_constraintVertical_bias="0.485" />
+
+    <EditText
+        android:id="@+id/editText_friendDetail_changeMoneyOwed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="numberDecimal"
+        android:text="Money Owed"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.849" />
+
+    <TextView
+        android:id="@+id/textView_friendDetail_clumsiness"
+        android:layout_width="wrap_content"
+        android:layout_height="23dp"
+        android:text="Clumsiness"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/seekBar_friendDetail_changeClumsiness"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <SeekBar
+        android:id="@+id/seekBar_friendDetail_changeClumsiness"
+        android:layout_width="194dp"
+        android:layout_height="26dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.472" />
+
+    <TextView
+        android:id="@+id/textView_friendDetail_trustworthiness"
+        android:layout_width="wrap_content"
+        android:layout_height="24dp"
+        android:text="Trustworthiness"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/ratingBar_friendDetail_changeTrustworthiness"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/textView_friendDetail_gymFrequency"
@@ -31,22 +103,28 @@
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/seekBar_friendDetail_changeGymFrequency"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.985" />
+        app:layout_constraintVertical_bias="0.944" />
 
-    <TextView
-        android:id="@+id/textView_friendDetail_trustworthiness"
+    <Button
+        android:id="@+id/button_friendDetail_save"
         android:layout_width="wrap_content"
-        android:layout_height="24dp"
-        android:layout_marginBottom="8dp"
-        android:text="Trustworthiness"
-        android:textAlignment="center"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/ratingBar_friendDetail_changeTrustworthiness"
+        android:layout_height="wrap_content"
+        android:text="Save"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="651dp" />
+
+    <SeekBar
+        android:id="@+id/seekBar_friendDetail_changeGymFrequency"
+        android:layout_width="194dp"
+        android:layout_height="26dp"
+        android:layout_marginBottom="564dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent" />
 
     <RatingBar
@@ -56,81 +134,9 @@
         android:layout_marginBottom="116dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/seekBar_friendDetail_changeClumsiness"
-        app:layout_constraintVertical_bias="0.531" />
-
-    <TextView
-        android:id="@+id/textView_friendDetail_clumsiness"
-        android:layout_width="wrap_content"
-        android:layout_height="23dp"
-        android:layout_marginBottom="8dp"
-        android:text="Clumsiness"
-        android:textAlignment="center"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/seekBar_friendDetail_changeClumsiness"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Switch
-        android:id="@+id/switch_friendDetail_awesome"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Awesome"
-        app:layout_constraintBottom_toTopOf="@+id/textView_friendDetail_gymFrequency"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/seekBar_friendDetail_changeClumsiness" />
-
-    <TextView
-        android:id="@+id/textView_friendDetail_moneyOwed"
-        android:layout_width="wrap_content"
-        android:layout_height="24dp"
-        android:layout_marginBottom="8dp"
-        android:text="Money Owed"
-        android:textAlignment="center"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/editText_friendDetail_changeMoneyOwed"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <SeekBar
-        android:id="@+id/seekBar_friendDetail_changeClumsiness"
-        android:layout_width="194dp"
-        android:layout_height="26dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.531" />
-
-    <SeekBar
-        android:id="@+id/seekBar_friendDetail_changeGymFrequency"
-        android:layout_width="194dp"
-        android:layout_height="26dp"
-        android:layout_marginBottom="528dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <EditText
-        android:id="@+id/editText_friendDetail_changeMoneyOwed"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="numberDecimal"
-        android:textAlignment="center"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.908" />
+        app:layout_constraintVertical_bias="0.427" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

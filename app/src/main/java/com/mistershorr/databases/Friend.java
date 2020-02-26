@@ -11,6 +11,10 @@ public class Friend implements Parcelable {
     private double moneyOwed;
     private String name;
     private int trustworthiness;
+    // backendless specific fields
+
+    private String objectId;
+    private String ownerId;
 
     // MUST HAVE A DEFAULT, NO PARAM CONSTRUCTOR (FOR BACKENDLESS TO WORK)
     public Friend() {
@@ -66,6 +70,22 @@ public class Friend implements Parcelable {
         this.trustworthiness = trustworthiness;
     }
 
+    public String getObjectId() {
+        return objectId;
+    }
+
+    public void setObjectId(String objectId) {
+        this.objectId = objectId;
+    }
+
+    public String getOwnerId() {
+        return ownerId;
+    }
+
+    public void setOwnerId(String ownerId) {
+        this.ownerId = ownerId;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -74,11 +94,13 @@ public class Friend implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(this.clumsiness);
-        dest.writeDouble(this.gymFrequency);
+        dest.writeInt(this.gymFrequency);
         dest.writeByte(this.isAwesome ? (byte) 1 : (byte) 0);
         dest.writeDouble(this.moneyOwed);
         dest.writeString(this.name);
         dest.writeInt(this.trustworthiness);
+        dest.writeString(this.objectId);
+        dest.writeString(this.ownerId);
     }
 
     protected Friend(Parcel in) {
@@ -88,6 +110,8 @@ public class Friend implements Parcelable {
         this.moneyOwed = in.readDouble();
         this.name = in.readString();
         this.trustworthiness = in.readInt();
+        this.objectId = in.readString();
+        this.ownerId = in.readString();
     }
 
     public static final Creator<Friend> CREATOR = new Creator<Friend>() {

@@ -4,11 +4,17 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.SeekBar;
 import android.widget.Switch;
 import android.widget.TextView;
+
+import static java.lang.Double.parseDouble;
 
 public class FriendDetailActivity extends AppCompatActivity {
 
@@ -22,6 +28,7 @@ public class FriendDetailActivity extends AppCompatActivity {
     private RatingBar ratingBarChangeTrustworthiness;
     private TextView textViewMoneyOwed;
     private EditText editTextChangeMoneyOwed;
+    private Button buttonSave;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,12 +36,12 @@ public class FriendDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_friend_detail);
 
         wireWidgets();
-        setListeners();
 
         Intent lastIntent = getIntent();
-        Friend friend = lastIntent.getParcelableExtra(FriendListActivity.EXTRA_FRIEND);
+        final Friend friend = lastIntent.getParcelableExtra(FriendListActivity.EXTRA_FRIEND);
 
         editTextName.setText("Name: " + friend.getName());
+        seekBarChangeGymFrequency.setMax(10);
         seekBarChangeGymFrequency.setProgress(friend.getGymFrequency());
         if(friend.isAwesome()) {
             switchAwesome.setText("Awesome: Yes");
@@ -42,9 +49,23 @@ public class FriendDetailActivity extends AppCompatActivity {
         else {
             switchAwesome.setText("Awesome: No");
         }
+//        seekBarChangeClumsiness.setMin(1);
+        seekBarChangeClumsiness.setMax(10);
         seekBarChangeClumsiness.setProgress(friend.getClumsiness());
         ratingBarChangeTrustworthiness.setNumStars(friend.getTrustworthiness());
-        editTextChangeMoneyOwed.setText("Name: " + friend.getMoneyOwed());
+        editTextChangeMoneyOwed.setText("$" + friend.getMoneyOwed());
+
+        buttonSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                friend.setName(editTextName.getText().toString());
+                friend.setGymFrequency(seekBarChangeGymFrequency.getProgress());
+//                friend.setAwesome(switchAwesome.get);
+                friend.setClumsiness(seekBarChangeClumsiness.getProgress());
+                friend.setTrustworthiness(ratingBarChangeTrustworthiness.getNumStars());
+                friend.setMoneyOwed(parseDouble(editTextChangeMoneyOwed.getText().toString().substring(1)));
+            }
+        });
     }
 
     private void wireWidgets() {
@@ -58,9 +79,6 @@ public class FriendDetailActivity extends AppCompatActivity {
         ratingBarChangeTrustworthiness = findViewById(R.id.ratingBar_friendDetail_changeTrustworthiness);
         textViewMoneyOwed = findViewById(R.id.textView_friendDetail_moneyOwed);
         editTextChangeMoneyOwed = findViewById(R.id.editText_friendDetail_changeMoneyOwed);
-    }
-
-    private void setListeners() {
-
+        buttonSave = findViewById(R.id.button_friendDetail_save);
     }
 }

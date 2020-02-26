@@ -14,8 +14,11 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.backendless.Backendless;
+import com.backendless.BackendlessUser;
+import com.backendless.UserService;
 import com.backendless.async.callback.AsyncCallback;
 import com.backendless.exceptions.BackendlessFault;
+import com.backendless.persistence.DataQueryBuilder;
 
 import java.util.List;
 
@@ -36,8 +39,16 @@ public class FriendListActivity extends AppCompatActivity {
 
         wireWidgets();
 
+        // search only for friends that have ownerIds tha match the user's objectId
+        String userId = Backendless.UserService.CurrentUser().getObjectId();
 
-        Backendless.Data.of(Friend.class).find(new AsyncCallback<List<Friend>>(){
+        // ownerId = '12432155uohufsfijf'
+        String whereClause = "ownerId = '" + userId + "'";
+
+        DataQueryBuilder queryBuilder = DataQueryBuilder.create();
+        queryBuilder.setWhereClause(whereClause);
+
+        Backendless.Data.of(Friend.class).find(queryBuilder, new AsyncCallback<List<Friend>>(){
             @Override
             public void handleResponse(final List<Friend> friendsList)
             {
