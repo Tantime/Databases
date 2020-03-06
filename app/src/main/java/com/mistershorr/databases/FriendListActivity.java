@@ -19,6 +19,7 @@ import com.backendless.UserService;
 import com.backendless.async.callback.AsyncCallback;
 import com.backendless.exceptions.BackendlessFault;
 import com.backendless.persistence.DataQueryBuilder;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
 
@@ -27,6 +28,7 @@ public class FriendListActivity extends AppCompatActivity {
     private ListView list;
     private List<Friend> friendsList;
     FriendAdapter friendAdapter;
+    FloatingActionButton floatingActionButtonNewFriend;
 
     public static final String EXTRA_FRIEND = "friend";
 
@@ -77,10 +79,23 @@ public class FriendListActivity extends AppCompatActivity {
                 // an error has occurred, the error code can be retrieved with fault.getCode()
             }
         });
+
+        setListeners();
     }
 
     private void wireWidgets() {
         list = findViewById(R.id.listView_friendlist_list);
+        floatingActionButtonNewFriend = findViewById(R.id.floatingActionButton_friendList_addFriend);
+    }
+
+    private void setListeners() {
+        floatingActionButtonNewFriend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent targetIntent = new Intent(FriendListActivity.this, FriendDetailActivity.class);
+                startActivity(targetIntent);
+            }
+        });
     }
 
     private class FriendAdapter extends ArrayAdapter<Friend> {

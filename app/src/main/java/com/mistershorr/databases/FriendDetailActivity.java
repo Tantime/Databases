@@ -16,6 +16,7 @@ import android.widget.RatingBar;
 import android.widget.SeekBar;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.backendless.Backendless;
 import com.backendless.async.callback.AsyncCallback;
@@ -25,6 +26,7 @@ import static java.lang.Double.parseDouble;
 
 public class FriendDetailActivity extends AppCompatActivity {
 
+    private TextView textViewName;
     private EditText editTextName;
     private TextView textViewGymFrequency;
     private SeekBar seekBarChangeGymFrequency;
@@ -52,9 +54,22 @@ public class FriendDetailActivity extends AppCompatActivity {
 //        final Friend friend = lastIntent.getParcelableExtra(FriendListActivity.EXTRA_FRIEND);
         friend = getIntent().getParcelableExtra(FriendListActivity.EXTRA_FRIEND);
 
-        editTextName.setText(friend.getName());
         seekBarChangeGymFrequency.setMin(0);
         seekBarChangeGymFrequency.setMax(14);
+        seekBarChangeClumsiness.setMin(1);
+        seekBarChangeClumsiness.setMax(5);
+        if(friend != null) {
+            setContact();
+        }
+        else {
+            friend = new Friend();
+        }
+
+        setListeners();
+    }
+
+    private void setContact() {
+        editTextName.setText(friend.getName());
         seekBarChangeGymFrequency.setProgress(friend.getGymFrequency());
         textViewGymFrequencyValue.setText("" + (((double)(seekBarChangeGymFrequency.getProgress())) / 2));
         if(friend.isAwesome()) {
@@ -63,17 +78,14 @@ public class FriendDetailActivity extends AppCompatActivity {
         else {
             switchAwesome.setText("Awesome: No");
         }
-        seekBarChangeClumsiness.setMin(1);
-        seekBarChangeClumsiness.setMax(5);
         seekBarChangeClumsiness.setProgress(friend.getClumsiness());
         textViewClumsinessValue.setText("" + (seekBarChangeClumsiness.getProgress()));
-        ratingBarChangeTrustworthiness.setNumStars(friend.getTrustworthiness());
+        ratingBarChangeTrustworthiness.setRating(friend.getTrustworthiness());
         editTextChangeMoneyOwed.setText("$" + friend.getMoneyOwed());
-
-        setListeners();
     }
 
     private void wireWidgets() {
+        textViewName = findViewById(R.id.textView_friendItem_name);
         editTextName = findViewById(R.id.editText_friendDetail_name);
         textViewGymFrequency = findViewById(R.id.textView_friendDetail_gymFrequency);
         seekBarChangeGymFrequency = findViewById(R.id.seekBar_friendDetail_changeGymFrequency);
@@ -89,17 +101,29 @@ public class FriendDetailActivity extends AppCompatActivity {
         buttonSave = findViewById(R.id.button_friendDetail_save);
     }
 
+    // TODO CRUD --> Contextual Menu (see documentation; long click) with a popup option that deletes from LOCAL LIST and DATABASE
+
     private void setListeners() {
         buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                friend.setName(editTextName.getText().toString());
-                friend.setGymFrequency(seekBarChangeGymFrequency.getProgress());
-                friend.setAwesome(switchAwesome.get);
-                friend.setClumsiness(seekBarChangeClumsiness.getProgress());
-                friend.setTrustworthiness((int)ratingBarChangeTrustworthiness.getRating());
-                friend.setMoneyOwed(parseDouble(editTextChangeMoneyOwed.getText().toString().substring(1)));
-                updateContact();
+                if(friend != null) {
+                    if(editTextName == null) {
+                        Toast.makeText(FriendDetailActivity.this, "enter name", Toast.LENGTH_SHORT).show();
+                    }
+                    if(editTextChangeMoneyOwed == null) {
+                        Toast.makeText(FriendDetailActivity.this, "enter money owed", Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        friend.setName(editTextName.getText().toString());
+                        friend.setGymFrequency(seekBarChangeGymFrequency.getProgress());
+                        friend.setAwesome(switchAwesome.isChecked());
+                        friend.setClumsiness(seekBarChangeClumsiness.getProgress());
+                        friend.setTrustworthiness((int)ratingBarChangeTrustworthiness.getRating());
+                        friend.setMoneyOwed(Double.parseDouble(editTextChangeMoneyOwed.getText().toString()));
+                        updateContact();
+                    }
+                }
             }
         });
 
@@ -177,7 +201,7 @@ public class FriendDetailActivity extends AppCompatActivity {
                     @Override
                     public void handleResponse( Friend response )
                     {
-                        // Contact instance has been updated
+                        // Friend instance has been updated
                     }
                     @Override
                     public void handleFault( BackendlessFault fault )

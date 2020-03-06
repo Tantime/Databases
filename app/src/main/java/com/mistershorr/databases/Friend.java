@@ -7,7 +7,7 @@ public class Friend implements Parcelable {
 
     private int clumsiness;
     private int gymFrequency;
-    private boolean isAwesome;
+    private boolean Awesome;
     private double moneyOwed;
     private String name;
     private int trustworthiness;
@@ -39,11 +39,11 @@ public class Friend implements Parcelable {
     }
 
     public boolean isAwesome() {
-        return isAwesome;
+        return Awesome;
     }
 
     public void setAwesome(boolean awesome) {
-        isAwesome = awesome;
+        Awesome = awesome;
     }
 
     public double getMoneyOwed() {
@@ -95,7 +95,7 @@ public class Friend implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(this.clumsiness);
         dest.writeInt(this.gymFrequency);
-        dest.writeByte(this.isAwesome ? (byte) 1 : (byte) 0);
+        dest.writeByte(this.Awesome ? (byte) 1 : (byte) 0);
         dest.writeDouble(this.moneyOwed);
         dest.writeString(this.name);
         dest.writeInt(this.trustworthiness);
@@ -106,7 +106,7 @@ public class Friend implements Parcelable {
     protected Friend(Parcel in) {
         this.clumsiness = in.readInt();
         this.gymFrequency = in.readInt();
-        this.isAwesome = in.readByte() != 0;
+        this.Awesome = in.readByte() != 0;
         this.moneyOwed = in.readDouble();
         this.name = in.readString();
         this.trustworthiness = in.readInt();
