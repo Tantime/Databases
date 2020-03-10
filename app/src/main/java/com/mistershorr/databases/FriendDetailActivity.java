@@ -8,7 +8,9 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -42,6 +44,8 @@ public class FriendDetailActivity extends AppCompatActivity {
     private Button buttonSave;
     private Friend friend;
 
+    public static final String TAG = FriendDetailActivity.class.getSimpleName();
+
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,15 +57,18 @@ public class FriendDetailActivity extends AppCompatActivity {
 //        Intent lastIntent = getIntent();
 //        final Friend friend = lastIntent.getParcelableExtra(FriendListActivity.EXTRA_FRIEND);
         friend = getIntent().getParcelableExtra(FriendListActivity.EXTRA_FRIEND);
+        Log.d(TAG, "onCreate: intent received");
 
         seekBarChangeGymFrequency.setMin(0);
         seekBarChangeGymFrequency.setMax(14);
         seekBarChangeClumsiness.setMin(1);
         seekBarChangeClumsiness.setMax(5);
         if(friend != null) {
+            Log.d(TAG, "onCreate: friend is NOT null");
             setContact();
         }
         else {
+            Log.d(TAG, "onCreate: friend is null");
             friend = new Friend();
         }
 
@@ -108,20 +115,31 @@ public class FriendDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(friend != null) {
-                    if(editTextName == null) {
+                    if(TextUtils.isEmpty(editTextName.getText().toString())) {
                         Toast.makeText(FriendDetailActivity.this, "enter name", Toast.LENGTH_SHORT).show();
                     }
-                    if(editTextChangeMoneyOwed == null) {
+                    else if(TextUtils.isEmpty(editTextChangeMoneyOwed.getText().toString())) {
                         Toast.makeText(FriendDetailActivity.this, "enter money owed", Toast.LENGTH_SHORT).show();
                     }
                     else {
+                        Log.d(TAG, "onClick: friend name is" + editTextName.getText().toString());
                         friend.setName(editTextName.getText().toString());
+                        Log.d(TAG, "onClick: setName() success");
                         friend.setGymFrequency(seekBarChangeGymFrequency.getProgress());
+                        Log.d(TAG, "onClick: setGymFrequency() success");
                         friend.setAwesome(switchAwesome.isChecked());
+                        Log.d(TAG, "onClick: setAwesome() success");
                         friend.setClumsiness(seekBarChangeClumsiness.getProgress());
+                        Log.d(TAG, "onClick: setClumsiness() success");
                         friend.setTrustworthiness((int)ratingBarChangeTrustworthiness.getRating());
-                        friend.setMoneyOwed(Double.parseDouble(editTextChangeMoneyOwed.getText().toString()));
+                        Log.d(TAG, "onClick: setTrustworthiness() success");
+                        friend.setMoneyOwed(parseDouble(editTextChangeMoneyOwed.getText().toString().substring(1)));
+                        Log.d(TAG, "onClick: setMoneyOwed() success");
                         updateContact();
+                        Log.d(TAG, "onClick: updateContact() success");
+                        Intent targetIntent = new Intent(FriendDetailActivity.this, FriendListActivity.class);
+                        startActivity(targetIntent);
+                        finish();
                     }
                 }
             }
@@ -197,18 +215,7 @@ public class FriendDetailActivity extends AppCompatActivity {
         Backendless.Persistence.save( friend, new AsyncCallback<Friend>() {
             public void handleResponse( Friend savedFriend )
             {
-                Backendless.Persistence.save( savedFriend, new AsyncCallback<Friend>() {
-                    @Override
-                    public void handleResponse( Friend response )
-                    {
-                        // Friend instance has been updated
-                    }
-                    @Override
-                    public void handleFault( BackendlessFault fault )
-                    {
-                        // an error has occurred, the error code can be retrieved with fault.getCode()
-                    }
-                } );
+                Toast.makeText(FriendDetailActivity.this, "complete", Toast.LENGTH_SHORT).show();
             }
             @Override
             public void handleFault( BackendlessFault fault )

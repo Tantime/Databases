@@ -41,7 +41,7 @@ public class FriendListActivity extends AppCompatActivity {
 
         wireWidgets();
 
-        // search only for friends that have ownerIds tha match the user's objectId
+        // search only for friends that have ownerIds that match the user's objectId
         String userId = Backendless.UserService.CurrentUser().getObjectId();
 
         // ownerId = '12432155uohufsfijf'
