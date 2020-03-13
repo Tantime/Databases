@@ -81,9 +81,14 @@ public class FriendDetailActivity extends AppCompatActivity {
             friend = new Friend();
         }
 
-        setListeners();
         actionBar = getActionBar();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        setListeners();
     }
 
     private void setContact() {
@@ -159,7 +164,12 @@ public class FriendDetailActivity extends AppCompatActivity {
                         Log.d(TAG, "onClick: setClumsiness() success");
                         friend.setTrustworthiness((int)ratingBarChangeTrustworthiness.getRating());
                         Log.d(TAG, "onClick: setTrustworthiness() success");
-                        friend.setMoneyOwed(parseDouble(editTextChangeMoneyOwed.getText().toString().substring(1)));
+                        if(editTextChangeMoneyOwed.getText().toString().substring(0, 1).equals("$")) {
+                            friend.setMoneyOwed(parseDouble(editTextChangeMoneyOwed.getText().toString().substring(1)));
+                        }
+                        else {
+                            friend.setMoneyOwed(parseDouble(editTextChangeMoneyOwed.getText().toString()));
+                        }
                         Log.d(TAG, "onClick: setMoneyOwed() success");
                         updateContact();
                         Log.d(TAG, "onClick: updateContact() success");
@@ -241,7 +251,7 @@ public class FriendDetailActivity extends AppCompatActivity {
         Backendless.Persistence.save( friend, new AsyncCallback<Friend>() {
             public void handleResponse( Friend savedFriend )
             {
-                Toast.makeText(FriendDetailActivity.this, "complete", Toast.LENGTH_SHORT).show();
+                Toast.makeText(FriendDetailActivity.this, "friend successfully updated", Toast.LENGTH_SHORT).show();
             }
             @Override
             public void handleFault( BackendlessFault fault )

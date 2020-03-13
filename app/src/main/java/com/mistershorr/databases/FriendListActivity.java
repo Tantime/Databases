@@ -1,11 +1,7 @@
 package com.mistershorr.databases;
 
-import androidx.activity.OnBackPressedCallback;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 
-import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -23,8 +19,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.backendless.Backendless;
-import com.backendless.BackendlessUser;
-import com.backendless.UserService;
 import com.backendless.async.callback.AsyncCallback;
 import com.backendless.exceptions.BackendlessFault;
 import com.backendless.persistence.DataQueryBuilder;
@@ -164,15 +158,16 @@ public class FriendListActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.action_logout:
                 logout();
+                // these 3 lines should be inside of the handle response so it only happens when successful
                 Intent targetIntent = new Intent(FriendListActivity.this, LoginActivity.class);
                 startActivity(targetIntent);
                 finish();
             case R.id.action_friendlist_sort_by_money_owed:
-                SortByMoneyOwed();
+                sortByMoneyOwed();
                 friendAdapter.notifyDataSetChanged();
                 return true;
             case R.id.action_friendlist_sort_by_name:
-                SortByName();
+                sortByName();
                 friendAdapter.notifyDataSetChanged();
                 return true;
             default:
@@ -180,7 +175,7 @@ public class FriendListActivity extends AppCompatActivity {
         }
     }
 
-    private void SortByMoneyOwed() {
+    private void sortByMoneyOwed() {
         // 1. extract the list from the adapter -> friendAdapter.friendlist
         Collections.sort(friendAdapter.friendsList, new Comparator<Friend>() {
             @Override
@@ -197,7 +192,7 @@ public class FriendListActivity extends AppCompatActivity {
         Toast.makeText(this, "Sort by money owed clicked", Toast.LENGTH_SHORT);
     }
 
-    private void SortByName() {
+    private void sortByName() {
         // 1. extract the list from the adapter -> friendAdapter.friendlist
         Collections.sort(friendAdapter.friendsList, new Comparator<Friend>() {
             @Override
@@ -237,6 +232,8 @@ public class FriendListActivity extends AppCompatActivity {
         {
             public void handleResponse( Long response )
             {
+                // should have something here to indicate success. a toast maybe
+                Toast.makeText(FriendListActivity.this, "friend deleted", Toast.LENGTH_SHORT).show();
                 // Contact has been deleted. The response is the
                 // time in milliseconds when the object was deleted
             }
@@ -244,6 +241,8 @@ public class FriendListActivity extends AppCompatActivity {
             {
                 // an error has occurred, the error code can be
                 // retrieved with fault.getCode()
+                // should have
+                Toast.makeText(FriendListActivity.this, "error", Toast.LENGTH_SHORT).show();
             }
         } );
     }
