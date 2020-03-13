@@ -1,8 +1,12 @@
 package com.mistershorr.databases;
 
+import androidx.activity.OnBackPressedCallback;
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
+import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -11,6 +15,9 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Adapter;
 import android.widget.Button;
@@ -44,6 +51,7 @@ public class FriendDetailActivity extends AppCompatActivity {
     private EditText editTextChangeMoneyOwed;
     private Button buttonSave;
     private Friend friend;
+    private ActionBar actionBar;
 
     public static final String TAG = FriendDetailActivity.class.getSimpleName();
 
@@ -74,6 +82,8 @@ public class FriendDetailActivity extends AppCompatActivity {
         }
 
         setListeners();
+        actionBar = getActionBar();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     private void setContact() {
@@ -107,6 +117,21 @@ public class FriendDetailActivity extends AppCompatActivity {
         textViewMoneyOwed = findViewById(R.id.textView_friendDetail_moneyOwed);
         editTextChangeMoneyOwed = findViewById(R.id.editText_friendDetail_changeMoneyOwed);
         buttonSave = findViewById(R.id.button_friendDetail_save);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return true;
     }
 
     // TODO CRUD --> Contextual Menu (see documentation; long click) with a popup option that deletes from LOCAL LIST and DATABASE
