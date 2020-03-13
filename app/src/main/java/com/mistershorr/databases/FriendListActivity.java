@@ -37,7 +37,7 @@ public class FriendListActivity extends AppCompatActivity {
     private List<Friend> friendsList;
     FriendAdapter friendAdapter;
     FloatingActionButton floatingActionButtonNewFriend;
-    ActionBar actionBar = getActionBar();
+//    ActionBar actionBar = getActionBar();
 
     public static final String EXTRA_FRIEND = "friend";
 
@@ -222,7 +222,7 @@ public class FriendListActivity extends AppCompatActivity {
                 startActivity(targetIntent);
             }
         });
-        actionBar.setDisplayHomeAsUpEnabled(true);
+//        actionBar.setDisplayHomeAsUpEnabled(true);
     }
 
     public void deleteContact(Friend friend) {
